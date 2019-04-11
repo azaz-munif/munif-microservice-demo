@@ -1,0 +1,191 @@
+	
+------------: Create Microservices Architecture Spring Boot :--------------
+
+- https://www.dineshonjava.com/microservices-with-spring-boot/ --------- Good Documentation link with example1
+
+- https://www.tatvasoft.com/blog/microservices-implementation-java/ ----- example2
+
+- https://www.javacodegeeks.com/2017/12/microservices-implementation-example-spring-boot.html ---- example3
+
+- Microservices configuration properties :
+	- https://www.oodlestechnologies.com/blogs/Microservices-configuration-properties
+
+Microservices Interview Questions 
+	- https://www.edureka.co/blog/interview-questions/microservices-interview-questions/	
+	
+- Microservices allow large systems to be built up from a number of collaborating components.
+
+- To build a simple micro-services system following steps required:
+
+    - Creating Discovery Service (Creating Eureka Discovery Service)
+    
+	- Creating MicroService (the Producer)
+        Register itself with Discovery Service with logical service.
+    
+	- Create Microservice Consumers find Service registered with Discovery Service
+        Discovery client using a smart RestTemplate to find Microservice.
+
+What is Eureka server?
+ Eureka Server is an application that holds the information about all client-service applications.
+ Every Micro service will register into the Eureka server and Eureka server knows all the client 
+ applications running on each port and IP address. Eureka Server is also known as Discovery Server.
+ 
+ Make sure Spring cloud Eureka server dependency is added in your build configuration file.
+ The code for Maven user dependency is shown below −
+	<dependency>
+	<groupId>org.springframework.cloud</groupId>
+	   <artifactId>spring-cloud-starter-eureka-server</artifactId>
+	</dependency>
+
+ The code for Gradle user dependency is given below −
+	compile('org.springframework.cloud:spring-cloud-starter-eureka-server')
+
+
+ By default, the Eureka Server registers itself into the discovery. You should add the below 
+ given configuration into your application.properties file or application.yml file.
+
+	application.properties file is given below:--−
+		eureka.client.registerWithEureka = false
+		eureka.client.fetchRegistry = false
+		server.port = 8761
+
+	The application.yml file is given below:--
+		eureka:
+		   client:
+			  registerWithEureka: false
+			  fetchRegistry: false
+		server:
+		   port: 8761
+
+	- More detail refer this link:--- https://www.tutorialspoint.com/spring_boot/spring_boot_eureka_server.htm
+
+- Netflix Ribbon provides several algorithms for client-side load balancing. 
+
+What is Eureka server, service, instance,and client?
+Eureka Server:
+    The discovery server. It contains a registry of services and a REST api that can be used to register a service, 
+	deregister a service, and discover the location of other services.
+
+Eureka Service:
+    Any application that can be found in the Eureka Server's registry and is discoverable by others. 
+	A service has a logical identifier sometimes called a VIP, sometimes called a "service id", that 
+	can refer to one or more instances of the same application.
+
+Eureka Instance:
+    Any application that registers itself with the Eureka Server to be discovered by others
+
+Eureka Client:
+    Any application that can discover services
+
+RestTemplate:-
+	The RestTemplate is the basic Spring class for simultaneous client-side HTTP access. 
+	It simplifies the interaction with HTTP servers and enforces RESTful systems. 
+	It is very related to the JdbcTemplate, JmsTemplate and the various other templates. 
+
+Why should we use RestTemplate:-
+	Basically, RestTemplate is used to make HTTP Rest Calls (REST Client).
+	If we want to make an HTTP Call, we need to create an HttpClient, pass request and form parameters, 
+	setup accept headers and perform unmarshalling of response, all by yourself, 
+	Spring Rest Templates tries to take the pain away by abstracting all these details from you.
+	It is thread-safe, once created you can use it as a callbacks to customize its works.
+
+	
+Error with solution:--------------
+- import dependency not proper
+	Error:
+	12:43:03.151 [background-preinit] DEBUG org.jboss.logging - Logging Provider: org.jboss.logging.Log4j2LoggerProvider
+	12:43:03.152 [background-preinit] INFO org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 6.0.16.Final
+	12:43:03.159 [background-preinit] DEBUG org.hibernate.validator.internal.engine.resolver.TraversableResolvers - Cannot find javax.persistence.Persistence on classpath. Assuming non JPA 2 environment. All properties will per default be traversable...................
+		java.lang.NoSuchMethodError: org.springframework.boot.builder.SpringApplicationBuilder.<init>([Ljava/lang/Object;)V
+		at org.springframework.cloud.bootstrap.BootstrapApplicationListener.bootstrapServiceContext(BootstrapApplicationListener.java:161)
+		at org.springframework.cloud.bootstrap.BootstrapApplicationListener.onApplicationEvent(BootstrapApplicationListener.java:102)	
+	
+	Solution: 
+		I already looked at that, and It's what I guess I did not understand correctly:
+		1.4.3 ---> "Spring Cloud Netflix 1.x is not compatible with spring boot 2"
+
+		spring-cloud-netflix | 1.4.3.RELEASE | 2.0.0.M7 | 2.0.0.BUILD-SNAPSHOT
+
+		So, seems that 1.4.3 is compatible with Finchley.M7. Right
+
+		"Finchley builds and works with Spring Boot 2.0.x, and is not expected to work with Spring Boot 1.5.x."
+
+		So, I guess I did not understand correctly how to match SpringBoot with Zuul versions..
+		(Thank You to close that, If You can help me to understand, I'll get it working correctly...)
+	
+	Example-1:
+		In my project spring boot version is 1.5.3.RELEASE
+		and spring cloud dependency version is Camden.SR5 so working fine.
+		
+	Example-2:
+		In other my project spring boot version is 2.0.4.RELEASE
+		and spring cloud dependency version is Camden.SR5 so is not compatible to each.
+		
+	In more detail know about compatible versions so refer below link.
+		- https://spring.io/projects/spring-cloud - In detail.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
